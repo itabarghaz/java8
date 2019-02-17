@@ -12,6 +12,11 @@ public interface Predicate<T> {
         return var1 -> this.test(var1) || other.test(var1);
     }
 
+    /**
+     * Expression Lambda is implemented test() function;
+     * @param string
+     * @return
+     */
     static Predicate<String> isEqualsTo(String string){
         return s -> s.equals(string);
     }
