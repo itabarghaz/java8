@@ -1,3 +1,5 @@
+package Demo;
+
 import com.sun.istack.internal.NotNull;
 
 import java.time.LocalDate;
@@ -49,11 +51,11 @@ public class Main {
         languages.forEach(s -> System.out.println(s));*/
 
         /**
-         *  Demo lambda
+         *  Demo.Demo lambda
           */
 
-       /* Demo square = (value) -> (value*value);
-        Demo cube = (value) -> (value*value*value);
+       /* Demo.Demo square = (value) -> (value*value);
+        Demo.Demo cube = (value) -> (value*value*value);
         System.out.println(square.compute(3));
         System.out.println(cube.compute(3));*/
 
