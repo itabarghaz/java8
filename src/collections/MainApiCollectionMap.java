@@ -1,6 +1,7 @@
 package collections;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MainApiCollectionMap {
@@ -20,11 +21,20 @@ public class MainApiCollectionMap {
         /*map.putIfAbsent(paris,new ArrayList<>());
         map.get(paris).add(p1);*/
 
-        map1.computeIfAbsent(newYork,city -> new ArrayList<>()).add(p1);
+        Function f1 = new Function() {
+            @Override
+            public Object apply(Object o) {
+                return new ArrayList<>();
+            }
+        };
+
+        map1.computeIfAbsent(newYork,f1).add(p1);
         map1.computeIfAbsent(shanghai,city -> new ArrayList<>()).add(p2);
         map1.computeIfAbsent(shanghai,city -> new ArrayList<>()).add(p3);
+        System.out.println("-----");
         System.out.println("Map 1");
-        map1.forEach((city,people) -> System.out.println(city +" : "+ people));
+        System.out.println("-----");
+        map1.forEach((city,people) -> System.out.println(city.getCity() +" : "+ people));
 
         /*System.out.println(map1.getOrDefault(paris, Collections.EMPTY_LIST));
         System.out.println(map1.getOrDefault(newYork, Collections.EMPTY_LIST));*/
@@ -33,26 +43,24 @@ public class MainApiCollectionMap {
         map2.computeIfAbsent(shanghai,city -> new ArrayList<>()).add(p4);
         map2.computeIfAbsent(paris,city -> new ArrayList<>()).add(p4);
         map2.computeIfAbsent(paris,city -> new ArrayList<>()).add(p5);
-
+        System.out.println("-----");
         System.out.println("Map 2");
-        map2.forEach((city,people) -> System.out.println(city +" : "+ people));
+        System.out.println("-----");
+        map2.forEach((city,people) -> System.out.println(city.getCity() +" : "+ people));
 
-
-        // A revoir
-        map2.forEach(
-                (city, people) -> {
-                    map1.merge(
-                            city,people,
-                            (peopleFromMap1,peopleFromMap2) -> {
+        // Merge maps
+        map2.forEach((city, people) -> {
+            map1.merge(city,people, (peopleFromMap1,peopleFromMap2) -> {
                                 peopleFromMap1.addAll(peopleFromMap2);
                                 return peopleFromMap1;
                             }
                     );
                 }
         );
-
-        System.out.println("Margin Map 1 ");
-        map1.forEach((city,people) -> System.out.println(city +" : "+ people));
+        System.out.println("--------------------------");
+        System.out.println("Margin Map 1 with Map 2 :");
+        System.out.println("--------------------------");
+        map1.forEach((city,people) -> System.out.println(city.getCity() +" : "+ people));
 
     }
 }
